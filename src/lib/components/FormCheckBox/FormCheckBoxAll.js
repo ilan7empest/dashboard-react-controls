@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import PropTypes from 'prop-types'
 import { FormSpy, Field } from 'react-final-form'
 import { OnChange } from 'react-final-form-listeners'
 
@@ -6,7 +7,7 @@ import FormCheckBox from './FormCheckBox'
 
 import './FormCheckBoxAll.scss'
 
-const CheckAll = ({ name = 'selectAll', listenTo, allCheckboxes, ...inputProps }) => {
+const FormCheckBoxAll = ({ name, listenTo, allCheckboxes, ...inputProps }) => {
   // const allCheckboxes = Array.from(document.querySelectorAll(`input[name=${listenTo}]`)).map(
   //   i => i.value
   // )
@@ -53,4 +54,14 @@ const CheckAll = ({ name = 'selectAll', listenTo, allCheckboxes, ...inputProps }
   )
 }
 
-export default CheckAll
+FormCheckBoxAll.defaultProps = {
+  name: 'selectAll'
+}
+
+FormCheckBoxAll.propTypes = {
+  allCheckboxes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  listenTo: PropTypes.string.isRequired,
+  name: PropTypes.string
+}
+
+export default FormCheckBoxAll
