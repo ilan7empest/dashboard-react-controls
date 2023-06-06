@@ -5,3 +5,4 @@ Create a new dist version 1.2.1
 Collecting:
 - Fix [Job Wizard] Batch run, hubs can't select card when click near 'chips' (#130)
 - Impl [UI] Revamp Details new view for datasets/models/artifacts (#131)
+- Create a new dist version 1.2.1 (#132)
