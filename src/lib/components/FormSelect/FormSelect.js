@@ -341,7 +341,7 @@ const FormSelect = ({
             )}
             {isOpen && (
               <PopUpDialog
-                className="form-field form-field-select__options-list"
+                className={`form-field form-field-select__options-list ${className}`}
                 headerIsHidden
                 ref={popUpRef}
                 customPosition={{
