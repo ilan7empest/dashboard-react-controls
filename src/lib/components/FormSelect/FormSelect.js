@@ -19,6 +19,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Field, useField } from 'react-final-form'
 
+import Button from '../Button/Button'
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog'
 import PopUpDialog from '../PopUpDialog/PopUpDialog'
 import SelectOption from '../../elements/SelectOption/SelectOption'
@@ -26,12 +27,11 @@ import TextTooltipTemplate from '../TooltipTemplate/TextTooltipTemplate'
 import Tooltip from '../Tooltip/Tooltip'
 
 import { SELECT_OPTIONS } from '../../types'
-import { TERTIARY_BUTTON } from '../../constants'
+import { SECONDARY_BUTTON, TERTIARY_BUTTON } from '../../constants'
 
 import { ReactComponent as Caret } from '../../images/dropdown.svg'
 
 import './formSelect.scss'
-import { debounce } from 'lodash'
 
 const FormSelect = ({
   className,
@@ -225,17 +225,17 @@ const FormSelect = ({
   const handleCloseSelectBody = useCallback(
     (event) => {
       event.stopPropagation()
-      if (multiple) return
 
       if (
         !event.target.classList.contains('disabled') &&
-        !event.target.closest('.options-list__search')
+        !event.target.closest('.options-list__search') &&
+        !event.target.closest('.options-list__multiple')
       ) {
         closeMenu()
         setSearchValue('')
       }
     },
-    [closeMenu, multiple]
+    [closeMenu]
   )
 
   const handleSelectOptionClick = (selectedOption, option) => {
@@ -371,7 +371,10 @@ const FormSelect = ({
                       />
                     </div>
                   )}
-                  <ul className="options-list" ref={optionsListRef}>
+                  <ul
+                    className={`options-list ${multiple && 'options-list__multiple'}`}
+                    ref={optionsListRef}
+                  >
                     {sortedOptionsList.map((option) => {
                       return (
                         <SelectOption
@@ -388,6 +391,16 @@ const FormSelect = ({
                       )
                     })}
                   </ul>
+                  {multiple && (
+                    <div className="multiple-selection__apply-btn">
+                      <Button
+                        density="dense"
+                        variant={SECONDARY_BUTTON}
+                        label="Apply"
+                        onClick={handleCloseSelectBody}
+                      />
+                    </div>
+                  )}
                 </div>
               </PopUpDialog>
             )}
